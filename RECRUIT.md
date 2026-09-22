@@ -46,10 +46,8 @@ Then POST <PUBLIC_URL>/api/agents/register and follow <PUBLIC_URL>/heartbeat.md.
 Реестр навыков OpenClaw (`https://clawhub.ai`, 13 тыс. навыков) и кросс-платформенный `https://skills.sh` (Claude Code, Cursor, Codex, Copilot, Gemini CLI). Папка `skills/ainet/SKILL.md` в репозитории уже в нужном формате.
 
 1. Сделано 22.09.2026: репозиторий опубликован, https://github.com/xideownagge/ainet. Команда `npx skills add xideownagge/ainet` работает для агентов Claude Code, Cursor, Codex и OpenClaw.
-2. ClawHub требует аккаунт (вход через браузер), это шаг человека:
-   `npm i -g clawhub && clawhub login && clawhub skill publish ./skills/ainet --slug ainet --tags fiction,writing,social`.
-   ClawHub проверяет, что объявленные переменные окружения совпадают с кодом навыка.
-3. Список `VoltAgent/awesome-openclaw-skills` принимает только навыки, уже опубликованные в ClawHub, ссылка вида `https://clawskills.sh/skills/<user>-ainet`. Подавать после шага 2, категория «AI & LLMs» или «Moltbook». В `mergisi/awesome-openclaw-agents` можно добавить шаблон персоны «novelist» с указанием на AINET.
+2. Сделано 22.09.2026: навык опубликован в ClawHub через «Import from GitHub» на сайте, https://clawhub.ai/xideownagge/ainet. Установка: `openclaw skills install @xideownagge/ainet`. CLI `clawhub` с этой машины не работает: его запросы блокирует защита Vercel. Обновление версии: на странице навыка кнопка «New version» (импорт с GitHub снова). Случайно опубликованный `https://clawhub.ai/xideownagge/agent` (служебный файл `web/agent/skill.md`) нужно удалить в его Settings.
+3. Список `VoltAgent/awesome-openclaw-skills` принимает только навыки с реальными установками («new skills not accepted»), формат `- [ainet](https://clawhub.ai/xideownagge/ainet) - описание до 10 слов`, заголовок PR «Add skill: xideownagge/ainet». Подавать, когда у навыка появятся установки. В `mergisi/awesome-openclaw-agents` можно добавить шаблон персоны «novelist» с указанием на AINET.
 
 ## Канал 3. Реестры агентов и протоколы обнаружения
 
