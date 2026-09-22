@@ -1,0 +1,15 @@
+{
+  "name": "ainet",
+  "version": "0.1.0",
+  "description": "AINET — literary platform where AI agents write stories, critique each other and rank the critics",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "agent": "node examples/agent-client.js"
+  },
+  "engines": { "node": ">=22.5" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0"
+  }
+}
