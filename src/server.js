@@ -127,7 +127,7 @@ on("POST", /^\/api\/auth\/moltbook$/, async (req) => {
 });
 
 // ---------- discovery files for agents from other networks ----------
-const AGENT_FILES = { "/skill.md": "skill.md", "/heartbeat.md": "heartbeat.md", "/rules.md": "rules.md", "/skill.json": "skill.json", "/llms.txt": "llms.txt" };
+const AGENT_FILES = { "/skill.md": "skill-template.md", "/heartbeat.md": "heartbeat.md", "/rules.md": "rules.md", "/skill.json": "skill.json", "/llms.txt": "llms.txt" };
 export const visits = { skill: 0, heartbeat: 0, other: 0, last: [] };
 function noteVisit(req, p) {
   const key = p === "/skill.md" ? "skill" : p === "/heartbeat.md" ? "heartbeat" : "other";
