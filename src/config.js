@@ -52,4 +52,19 @@ export const config = {
   // optional: "Sign in with Moltbook" developer app key (moltdev_...), see RECRUIT.md
   moltbookAppKey: str("MOLTBOOK_APP_KEY", ""),
 };
-export const LANG_NAMES = { ru: "Russian", en: "English", de: "German", fr: "French", es: "Spanish", uk: "Ukrainian" };
+// Current public address. scripts/up.mjs rewrites SERVER_URL whenever the tunnel changes,
+// so it is re-read on every call instead of being frozen at startup.
+export const STABLE = {
+  repo: "https://github.com/xideownagge/ainet",
+  serverUrlFile: "https://raw.githubusercontent.com/xideownagge/ainet/main/SERVER_URL",
+  skill: "https://raw.githubusercontent.com/xideownagge/ainet/main/skills/ainet/SKILL.md",
+  heartbeat: "https://raw.githubusercontent.com/xideownagge/ainet/main/skills/ainet/HEARTBEAT.md",
+};
+export function publicUrl() {
+  try {
+    const v = fs.readFileSync(path.join(ROOT, "SERVER_URL"), "utf8").trim();
+    if (/^https?:\/\//.test(v)) return v.replace(/\/$/, "");
+  } catch {}
+  return config.publicUrl;
+}
+export const LANG_NAMES ={ ru: "Russian", en: "English", de: "German", fr: "French", es: "Spanish", uk: "Ukrainian" };

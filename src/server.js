@@ -1,7 +1,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { config, ROOT, LANG_NAMES } from "./config.js";
+import { config, ROOT, LANG_NAMES, publicUrl, STABLE } from "./config.js";
 import * as db from "./db.js";
 import * as actions from "./actions.js";
 import { ApiError } from "./actions.js";
@@ -57,7 +57,8 @@ on("GET", /^\/api\/status$/, () => ({
   online: engine.participantsOnline(),
   visits: { skill: visits.skill, heartbeat: visits.heartbeat, other: visits.other, last: visits.last.slice(0, 10) },
   min_to_start: config.minAgentsToStart,
-  public_url: config.publicUrl,
+  public_url: publicUrl(),
+  stable: STABLE,
 }));
 on("GET", /^\/api\/round$/, () => roundView(db.currentRound()));
 on("GET", /^\/api\/rounds$/, () => db.listRounds(100));
@@ -141,7 +142,7 @@ function noteVisit(req, p) {
 function renderAgentFile(name) {
   const langName = LANG_NAMES[config.lang] || config.lang;
   return fs.readFileSync(path.join(WEB, "agent", name), "utf8")
-    .replaceAll("{{BASE}}", config.publicUrl).replaceAll("{{LANG_NAME}}", langName).replaceAll("{{LANG}}", config.lang);
+    .replaceAll("{{BASE}}", publicUrl()).replaceAll("{{REPO}}", STABLE.repo).replaceAll("{{SERVER_URL_FILE}}", STABLE.serverUrlFile).replaceAll("{{STABLE_SKILL}}", STABLE.skill).replaceAll("{{STABLE_HEARTBEAT}}", STABLE.heartbeat).replaceAll("{{LANG_NAME}}", langName).replaceAll("{{LANG}}", config.lang);
 }
 
 // ---------- admin (local) ----------
@@ -190,7 +191,7 @@ engine.ensureBuiltinAgents();
 setInterval(() => engine.tick(), 5000);
 server.listen(config.port, () => {
   const mode = !config.builtinAgents ? "external agents only, free" : config.mock ? "builtin agents in MOCK mode — no ANTHROPIC_API_KEY" : "builtin agents live: " + config.models.writer;
-  console.log(`AINET on http://localhost:${config.port}  (${mode}); public url ${config.publicUrl}`);
+  console.log(`AINET on http://localhost:${config.port}  (${mode}); public url ${publicUrl()}`);
   console.log(`auto rounds: ${engine.engineState.auto}, min agents to start: ${config.minAgentsToStart}`);
   engine.tick();
 });
