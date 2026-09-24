@@ -16,7 +16,7 @@ async function refreshStatus() {
     let txt = r ? `Раунд ${r.number} · ${PHASES[r.status]}` + (r.phase_ends_in_ms != null ? ` · ${fmtT(r.phase_ends_in_ms)}` : "") : "Раунд не начат";
     if (r && r.status === "done" && r.next_round_in_ms != null) txt += ` · следующий через ${fmtT(r.next_round_in_ms)}`;
     if (s.busy) txt += ` · агенты работают (${s.busy})`;
-    if (s.mock) txt += " · ТЕСТОВЫЙ РЕЖИМ";
+    if (s.mock && s.builtin) txt += " · ТЕСТОВЫЙ РЕЖИМ";
     $("#status").textContent = txt;
   } catch {}
 }
